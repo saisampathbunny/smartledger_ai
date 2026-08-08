@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SmartLedger AI</title>
+</head>
+<body>
+    <h1>SmartLedger AI Dashboard</h1>
+    <p>Fraud detection system</p>
+
+    <h2>Add Transaction</h2>
+    <input id="sender" placeholder="Sender Account">    
+    <input id="receiver" placeholder="Receiver Account">
+    <input id="amount" placeholder="Amount" type="number">
+    <input id="type" placeholder="Type (TRANSFER/DEPOSIT)">
+    <button onclick="addTransaction()">Add</button>
+
+    <h2>Transactions</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Explanation</th>
+            </tr>
+        </thead>
+        <tbody id="transactionTable"></tbody>
+    </table>
+
+    <script>
+        function loadTransactions() {
+            let table = document.getElementById("transactionTable");
+            table.innerHTML = "";
+            fetch("http://localhost:8080/transactions/all")
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(t => {
+                        let color = "white";
+                        if (t.fraudStatus === "SUSPICIOUS") {
+                            color = "#ffcccc";
+                        }
+                        let row = "<tr style='background-color:" + color + "'>"
+                            + "<td>" + t.id + "</td>"
+                            + "<td>" + t.senderAccount + "</td>"
+                            + "<td>" + t.receiverAccount + "</td>"
+                            + "<td>" + t.amount + "</td>"
+                            + "<td>" + t.fraudStatus + "</td>"
+                            + "<td>" + t.explanation + "</td>"
+                            + "</tr>";
+                        table.innerHTML += row;
+                    });
+                });
+        }
+
+        function addTransaction() {
+            let transaction = {
+                senderAccount: document.getElementById("sender").value,
+                receiverAccount: document.getElementById("receiver").value,
+                amount: parseFloat(document.getElementById("amount").value),
+                transactionType: document.getElementById("type").value,
+                timestamp: "2026-06-14 12:00"
+            };
+
+            fetch("http://localhost:8080/transactions/add", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(transaction)
+            })
+            .then(response => response.json())
+            .then(() => {
+                loadTransactions();
+            });
+        }
+
+        loadTransactions();
+    </script>
+</body>
+</html>
