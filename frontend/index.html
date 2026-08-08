@@ -60,7 +60,7 @@
                 receiverAccount: document.getElementById("receiver").value,
                 amount: parseFloat(document.getElementById("amount").value),
                 transactionType: document.getElementById("type").value,
-                timestamp: "2026-06-14 12:00"
+                timestamp: new Date().toISOString()
             };
 
             fetch("http://localhost:8080/transactions/add", {
