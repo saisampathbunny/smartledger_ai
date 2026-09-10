@@ -30,15 +30,19 @@
     </table>
 
     <script>
-        function loadTransactions() {
+        function loadTransactions()
+        {
             let table = document.getElementById("transactionTable");
             table.innerHTML = "";
             fetch("http://localhost:8080/transactions/all")
                 .then(response => response.json())
-                .then(data => {
-                    data.forEach(t => {
+                .then(data =>
+                {
+                    data.forEach(t =>
+                    {
                         let color = "white";
-                        if (t.fraudStatus === "SUSPICIOUS") {
+                        if (t.fraudStatus === "SUSPICIOUS")
+                        {
                             color = "#ffcccc";
                         }
                         let row = "<tr style='background-color:" + color + "'>"
@@ -54,7 +58,8 @@
                 });
         }
 
-        function addTransaction() {
+        function addTransaction()
+        {
             let transaction = {
                 senderAccount: document.getElementById("sender").value,
                 receiverAccount: document.getElementById("receiver").value,
@@ -63,13 +68,15 @@
                 timestamp: new Date().toISOString()
             };
 
-            fetch("http://localhost:8080/transactions/add", {
+            fetch("http://localhost:8080/transactions/add",
+            {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(transaction)
             })
             .then(response => response.json())
-            .then(() => {
+            .then(() =>
+            {
                 loadTransactions();
             });
         }
