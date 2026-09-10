@@ -13,7 +13,8 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/transactions")
-public class TransactionController {
+public class TransactionController
+{
 
     @Autowired
     private TransactionRepository repository;
@@ -25,15 +26,19 @@ public class TransactionController {
     private GeminiService geminiService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addTransaction(@RequestBody Transaction transaction) {
+    public ResponseEntity<?> addTransaction(@RequestBody Transaction transaction)
+    {
         // inline validation — return error response instead of throwing
-        if (transaction.getAmount() == null || transaction.getAmount() <= 0) {
+        if (transaction.getAmount() == null || transaction.getAmount() <= 0)
+        {
             return ResponseEntity.badRequest().body("Transaction amount must be greater than zero.");
         }
-        if (transaction.getSenderAccount() == null || transaction.getSenderAccount().isBlank()) {
+        if (transaction.getSenderAccount() == null || transaction.getSenderAccount().isBlank())
+        {
             return ResponseEntity.badRequest().body("Sender account is required.");
         }
-        if (transaction.getReceiverAccount() == null || transaction.getReceiverAccount().isBlank()) {
+        if (transaction.getReceiverAccount() == null || transaction.getReceiverAccount().isBlank())
+        {
             return ResponseEntity.badRequest().body("Receiver account is required.");
         }
 
@@ -47,12 +52,14 @@ public class TransactionController {
     }
 
     @GetMapping("/all")
-    public List<Transaction> getAllTransactions() {
+    public List<Transaction> getAllTransactions()
+    {
         return repository.findAll();
     }
 
     @GetMapping("/one/{id}")
-    public ResponseEntity<?> getTransactionById(@PathVariable Long id) {
+    public ResponseEntity<?> getTransactionById(@PathVariable Long id)
+    {
         return repository.findById(id)
                 .<ResponseEntity<?>>map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(404).body("No transaction found with id " + id));
