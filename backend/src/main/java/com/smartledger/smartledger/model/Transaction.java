@@ -8,7 +8,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "transactions")
-public class Transaction {
+public class Transaction
+{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,67 +23,83 @@ public class Transaction {
     private String fraudStatus;
     private String explanation;
 
-    public Long getId() {
+    public Long getId()
+    {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
-    public String getSenderAccount() {
+    public String getSenderAccount()
+    {
         return senderAccount;
     }
 
-    public void setSenderAccount(String senderAccount) {
+    public void setSenderAccount(String senderAccount)
+    {
         this.senderAccount = senderAccount;
     }
 
-    public String getReceiverAccount() {
+    public String getReceiverAccount()
+    {
         return receiverAccount;
     }
 
-    public void setReceiverAccount(String receiverAccount) {
+    public void setReceiverAccount(String receiverAccount)
+    {
         this.receiverAccount = receiverAccount;
     }
 
-    public Double getAmount() {
+    public Double getAmount()
+    {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(Double amount)
+    {
         this.amount = amount;
     }
 
-    public String getTransactionType() {
+    public String getTransactionType()
+    {
         return transactionType;
     }
 
-    public void setTransactionType(String transactionType) {
+    public void setTransactionType(String transactionType)
+    {
         this.transactionType = transactionType;
     }
 
-    public String getTimestamp() {
+    public String getTimestamp()
+    {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(String timestamp)
+    {
         this.timestamp = timestamp;
     }
 
-    public String getFraudStatus() {
+    public String getFraudStatus()
+    {
         return fraudStatus;
     }
 
-    public void setFraudStatus(String fraudStatus) {
+    public void setFraudStatus(String fraudStatus)
+    {
         this.fraudStatus = fraudStatus;
     }
 
-    public String getExplanation() {
+    public String getExplanation()
+    {
         return explanation;
     }
 
-    public void setExplanation(String explanation) {
+    public void setExplanation(String explanation)
+    {
         this.explanation = explanation;
     }
 }
